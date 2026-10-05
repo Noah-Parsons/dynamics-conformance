@@ -1,0 +1,157 @@
+name: conformance
+
+# Daily: find engine releases with no result, score each on a fresh runner,
+# commit the results, rebuild the public page.
+
+on:
+  schedule:
+    - cron: "23 6 * * *"
+  workflow_dispatch:
+    inputs:
+      engine:
+        description: "sympy | mechanicsdsl | drake | chrono | all"
+        default: "all"
+      version:
+        description: "one release key to run (optional, e.g. 1.13.3 or 10.0.0-b1187)"
+        default: ""
+      backfill:
+        description: "consider the newest N releases of each engine"
+        default: "1"
+      force:
+        description: "rerun releases that already have results"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - "conformance/**"
+      - ".github/workflows/conformance.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: conformance
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.find.outputs.matrix }}
+      any: ${{ steps.find.outputs.any }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install packaging
+      - id: find
+        run: |
+          args="--engine '${{ inputs.engine || 'all' }}' --backfill '${{ inputs.backfill || '1' }}'"
+          if [ -n "${{ inputs.version }}" ]; then args="$args --version '${{ inputs.version }}'"; fi
+          if [ "${{ inputs.force }}" = "true" ]; then args="$args --force"; fi
+          m=$(eval python -m conformance.releases $args)
+          echo "$m"
+          echo "matrix=$m" >> "$GITHUB_OUTPUT"
+          if [ "$m" = '{"include": []}' ]; then echo "any=false" >> "$GITHUB_OUTPUT"; else echo "any=true" >> "$GITHUB_OUTPUT"; fi
+
+  run:
+    needs: discover
+    if: needs.discover.outputs.any == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.discover.outputs.matrix) }}
+    name: ${{ matrix.engine }} ${{ matrix.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy scipy packaging
+
+      # --- pip engines -------------------------------------------------------
+      - name: install (pip)
+        id: pip
+        if: matrix.installer == 'pip'
+        continue-on-error: true
+        run: pip install "${{ matrix.spec }}"
+      - name: score (pip)
+        if: matrix.installer == 'pip' && steps.pip.outcome == 'success'
+        run: >
+          python -m conformance.run --engine ${{ matrix.engine }}
+          --key "${{ matrix.key }}" --spec "${{ matrix.spec }}" --out new
+
+      # --- conda engines -----------------------------------------------------
+      - name: install (conda)
+        id: conda
+        if: matrix.installer == 'conda'
+        continue-on-error: true
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-name: engine
+          create-args: >-
+            python=3.12 numpy scipy packaging ${{ matrix.spec }}
+          condarc: |
+            channels:
+              - conda-forge
+      - name: score (conda)
+        if: matrix.installer == 'conda' && steps.conda.outcome == 'success'
+        shell: bash -el {0}
+        run: >
+          micromamba run -n engine python -m conformance.run --engine ${{ matrix.engine }}
+          --key "${{ matrix.key }}" --spec "${{ matrix.spec }}" --out new
+
+      # --- could not install: record it so it is shown, not retried ----------
+      - name: record install failure
+        if: steps.pip.outcome == 'failure' || steps.conda.outcome == 'failure'
+        run: >
+          python -m conformance.run --engine ${{ matrix.engine }} --install-failed
+          --key "${{ matrix.key }}" --version "${{ matrix.version }}"
+          --spec "${{ matrix.spec }}" --out new
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ matrix.engine }}-${{ matrix.key }}
+          path: new/
+          if-no-files-found: error
+
+  publish:
+    needs: [discover, run]
+    if: always() && needs.discover.result == 'success'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy packaging
+      - uses: actions/download-artifact@v4
+        if: needs.discover.outputs.any == 'true'
+        with:
+          pattern: result-*
+          path: results
+          merge-multiple: true
+      - name: commit results
+        run: |
+          git config user.name "conformance-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results
+          if git diff --cached --quiet; then echo "no new results"; exit 0; fi
+          git commit -m "results: $(git diff --cached --name-only | sed 's#results/##; s#\.json##' | paste -sd ', ')"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
+      - run: python -m conformance.site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4

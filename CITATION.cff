@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: Dynamics Engine Conformance
+message: >-
+  If you use these results or references, please cite them using the
+  metadata from this file.
+type: software
+authors:
+  - family-names: Parsons
+    given-names: Noah
+    orcid: 'https://orcid.org/0009-0000-7224-6040'
+repository-code: 'https://github.com/Noah-Parsons/dynamics-conformance'
+url: 'https://noah-parsons.github.io/dynamics-conformance/'
+abstract: >-
+  A continuously running conformance service for multibody dynamics
+  engines. Each new release of SymPy, MechanicsDSL, Drake and Project
+  Chrono is installed automatically and scored against closed-form,
+  library-independent references on pendulum chains, near-singular and
+  extreme-mass-ratio systems, a cart-pole and a closed-loop slider-crank.
+  Each answer is classified by whether a wrong result was reported as
+  success.
+keywords:
+  - multibody dynamics
+  - conformance testing
+  - silent failure
+  - differential testing
+license: MIT
