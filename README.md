@@ -67,7 +67,7 @@ an engine's answer.
 pip install numpy scipy packaging sympy
 python -m conformance.run --engine sympy --out my-results
 python -m conformance.site        # builds _site/ from results/
-pytest -q
+python -m pytest -q
 ```
 
 To score a specific release in CI, run the `conformance` workflow by hand with
