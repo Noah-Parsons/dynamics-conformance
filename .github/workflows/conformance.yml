@@ -38,7 +38,7 @@ concurrency:
 
 jobs:
   discover:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.find.outputs.matrix }}
       any: ${{ steps.find.outputs.any }}
@@ -61,7 +61,7 @@ jobs:
   run:
     needs: discover
     if: needs.discover.outputs.any == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 120
     strategy:
       fail-fast: false
@@ -124,7 +124,7 @@ jobs:
   publish:
     needs: [discover, run]
     if: always() && needs.discover.result == 'success'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
