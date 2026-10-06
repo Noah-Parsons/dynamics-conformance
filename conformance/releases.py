@@ -13,10 +13,11 @@ Sources:
   PyPI JSON API        sympy, mechanicsdsl-core, drake (final releases only,
                        yanked ones skipped, and only those with a wheel or
                        sdist this runner can install)
-  anaconda.org API     pychrono on the projectchrono channel. Chrono ships
-                       rebuilds of one version number under new build
-                       numbers, and those rebuilds carry real code changes, so
-                       each (version, build) is its own release here.
+  anaconda.org API     pychrono on the projectchrono channel, labels "main"
+                       and "release" only. Chrono ships rebuilds of one
+                       version number under new build numbers, and those
+                       rebuilds carry real code changes, so each
+                       (version, build) is its own release here.
 """
 
 from __future__ import annotations
@@ -85,18 +86,27 @@ def chrono_releases():
         build = a.get("build", "")
         if a.get("subdir") != "linux-64" or not build.startswith("py312"):
             continue
+        # Builds under other labels (e.g. "mb_tire") come from feature
+        # branches and are not installable from the default channel.
+        labels = set(f.get("labels") or [])
+        if labels & {"main"}:
+            channel = "projectchrono"
+        elif labels & {"release"}:
+            channel = "projectchrono/label/release"
+        else:
+            continue
         try:
             pv = Version(f["version"])
         except InvalidVersion:
             continue
         bn = int(a.get("build_number", re.sub(r".*_", "", build) or 0))
-        best[(pv, bn)] = (f["version"], build, bn)
+        best[(pv, bn)] = (f["version"], build, bn, channel)
     out = []
     for (pv, bn) in sorted(best):
-        v, build, bn = best[(pv, bn)]
+        v, build, bn, channel = best[(pv, bn)]
         out.append({"engine": "chrono", "version": f"{v} (build {bn})",
                     "key": f"{v}-b{bn}", "installer": "conda",
-                    "spec": f"projectchrono::pychrono={v}={build}"})
+                    "spec": f"{channel}::pychrono={v}={build}"})
     return out
 
 
