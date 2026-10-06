@@ -1,0 +1,600 @@
+{
+ "engine": "mechanicsdsl",
+ "display": "MechanicsDSL",
+ "homepage": "https://github.com/MechanicsDSL/mechanicsdsl",
+ "install_spec": "mechanicsdsl-core==2.1.1",
+ "catalogue_version": "1",
+ "harness_commit": "44fb4533f73e8f7ffd7a8bf80984aa17f63d6b26",
+ "python": "3.12.14",
+ "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+ "run_at": "2026-10-06T00:04:40+00:00",
+ "run_url": "https://github.com/Noah-Parsons/dynamics-conformance/actions/runs/37391854688",
+ "routes": {
+  "compile_dsl": "PhysicsCompiler.compile_dsl, then simulator.equations_of_motion"
+ },
+ "known_issues": {},
+ "not_modelled": {},
+ "version": "2.1.1",
+ "key": "2.1.1",
+ "status": "ran",
+ "results": [
+  {
+   "route": "compile_dsl",
+   "case": "chain/N=1",
+   "family": "chain",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 0.0,
+   "worst_ratio": 0.0,
+   "n_probes": 17,
+   "n_ok": 17,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 1.442,
+   "seconds": 1.444,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 0,
+    "err": 0.0,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "chain/N=2",
+   "family": "chain",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 1.7763568394002505e-15,
+   "worst_ratio": 1.7763568394002505e-07,
+   "n_probes": 17,
+   "n_ok": 17,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 2.959,
+   "seconds": 2.961,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 9,
+    "err": 1.7763568394002505e-15,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "chain/N=3",
+   "family": "chain",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 6.435366271917051e-15,
+   "worst_ratio": 6.435366271917051e-07,
+   "n_probes": 17,
+   "n_ok": 17,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 37.402,
+   "seconds": 37.405,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 12,
+    "err": 6.435366271917051e-15,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "chain/N=5",
+   "verdict": "timeout",
+   "seconds": 180.1,
+   "timeout_s": 180.0
+  },
+  {
+   "route": "compile_dsl",
+   "case": "chain/N=8",
+   "verdict": "timeout",
+   "seconds": 180.1,
+   "timeout_s": 180.0
+  },
+  {
+   "route": "compile_dsl",
+   "case": "near_singular/eps=0.1",
+   "family": "near_singular",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 1.300007313804428e-15,
+   "worst_ratio": 1.300007313804428e-07,
+   "n_probes": 8,
+   "n_ok": 8,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 1.07,
+   "seconds": 1.071,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 3,
+    "err": 1.300007313804428e-15,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "near_singular/eps=0.0001",
+   "family": "near_singular",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 3.6271211263185547e-13,
+   "worst_ratio": 3.627121126318555e-05,
+   "n_probes": 8,
+   "n_ok": 8,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 1.024,
+   "seconds": 1.025,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 5,
+    "err": 3.6271211263185547e-13,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "near_singular/eps=1e-08",
+   "family": "near_singular",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 3.337808577256773e-16,
+   "worst_ratio": 1.6689042841925005e-10,
+   "n_probes": 8,
+   "n_ok": 8,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 1.081,
+   "seconds": 1.081,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 1,
+    "err": 3.337808577256773e-16,
+    "tol": 2.000000005315926e-06
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "near_singular/eps=0",
+   "family": "near_singular",
+   "verdict": "warned",
+   "refused": false,
+   "worst_err": null,
+   "worst_ratio": null,
+   "n_probes": 8,
+   "n_ok": 0,
+   "n_wrong": 8,
+   "n_raised": 0,
+   "build_seconds": 0.942,
+   "seconds": 0.942,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba",
+    "MechanicsDSL: Mass matrix is singular; cannot solve for accelerations. Check that the Lagrangian's kinetic term is positive-definite.",
+    "MechanicsDSL: CRITICAL: Could not solve for any acceleration; all accelerations defaulted to zero. Simulation will produce static dynamics.",
+    "MechanicsDSL: Compilation produced 2 diagnostic warning(s); results may be incomplete.",
+    "engine: Mass matrix is singular; cannot solve for accelerations. Check that the Lagrangian's kinetic term is positive-definite.",
+    "engine: Could not solve for any acceleration; all accelerations defaulted to zero. Simulation will produce static dynamics."
+   ],
+   "max_shift": 0.0,
+   "probe_error": "answered a system with no defined answer"
+  },
+  {
+   "route": "compile_dsl",
+   "case": "mass_ratio/ratio=1",
+   "family": "mass_ratio",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 0.0,
+   "worst_ratio": 0.0,
+   "n_probes": 8,
+   "n_ok": 8,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 1.005,
+   "seconds": 1.005,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 0,
+    "err": 0.0,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "mass_ratio/ratio=1e+06",
+   "family": "mass_ratio",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 2.117582368135751e-22,
+   "worst_ratio": 2.117582368135751e-14,
+   "n_probes": 8,
+   "n_ok": 8,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 0.991,
+   "seconds": 0.992,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 3,
+    "err": 2.117582368135751e-22,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "mass_ratio/ratio=1e+12",
+   "family": "mass_ratio",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 1.0097419586828951e-28,
+   "worst_ratio": 1.0097419586828951e-20,
+   "n_probes": 8,
+   "n_ok": 8,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 0.991,
+   "seconds": 0.992,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 4,
+    "err": 1.0097419586828951e-28,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "cartpole/M_over_m=10",
+   "family": "cartpole",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 3.104501518031004e-16,
+   "worst_ratio": 3.104501518031004e-08,
+   "n_probes": 10,
+   "n_ok": 10,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 1.481,
+   "seconds": 1.482,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 6,
+    "err": 3.104501518031004e-16,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "cartpole/M_over_m=1",
+   "family": "cartpole",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 2.525903886636995e-16,
+   "worst_ratio": 2.5259038866369952e-08,
+   "n_probes": 10,
+   "n_ok": 10,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 1.452,
+   "seconds": 1.453,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 8,
+    "err": 2.525903886636995e-16,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "cartpole/M_over_m=0.01",
+   "family": "cartpole",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 3.626816040901659e-15,
+   "worst_ratio": 3.6268160409016593e-07,
+   "n_probes": 10,
+   "n_ok": 10,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 1.503,
+   "seconds": 1.504,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 6,
+    "err": 3.626816040901659e-15,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "cartpole/M_over_m=0.0001",
+   "family": "cartpole",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 2.1972471433381715e-15,
+   "worst_ratio": 2.1972471433381715e-07,
+   "n_probes": 10,
+   "n_ok": 10,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 1.518,
+   "seconds": 1.519,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 5,
+    "err": 2.1972471433381715e-15,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "cartpole/M_over_m=1e-06",
+   "family": "cartpole",
+   "verdict": "pass",
+   "refused": false,
+   "worst_err": 4.832541720402919e-15,
+   "worst_ratio": 4.83254172040292e-07,
+   "n_probes": 10,
+   "n_ok": 10,
+   "n_wrong": 0,
+   "n_raised": 0,
+   "build_seconds": 1.486,
+   "seconds": 1.487,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba"
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 8,
+    "err": 4.832541720402919e-15,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "slidercrank/l_over_r=3,ms_over_mc=1",
+   "family": "slidercrank",
+   "verdict": "warned",
+   "refused": false,
+   "worst_err": 1.0,
+   "worst_ratio": 100000000.0,
+   "n_probes": 12,
+   "n_ok": 0,
+   "n_wrong": 12,
+   "n_raised": 0,
+   "build_seconds": 1.245,
+   "seconds": 1.25,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba",
+    "MechanicsDSL: Parser error: Expected NUMBER but got MINUS '-' at line 11, column 64",
+    "MechanicsDSL: Parser encountered 2 errors",
+    "MechanicsDSL: Parser found 2 errors",
+    "MechanicsDSL: No solution found for lambda_0_ddot; falling back to zero acceleration. Check that the Lagrangian is non-degenerate in this coordinate.",
+    "MechanicsDSL: Compilation produced 1 diagnostic warning(s); results may be incomplete.",
+    "engine: No solution found for lambda_0_ddot; falling back to zero acceleration. Check that the Lagrangian is non-degenerate in this coordinate."
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 0,
+    "state": [
+     0.0,
+     4.0,
+     4.0,
+     -0.0
+    ],
+    "engine": [
+     0.0,
+     0.0
+    ],
+    "reference": [
+     -9.81,
+     -21.333333333333332
+    ],
+    "err": 1.0,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "slidercrank/l_over_r=1.5,ms_over_mc=100",
+   "family": "slidercrank",
+   "verdict": "warned",
+   "refused": false,
+   "worst_err": 1.0,
+   "worst_ratio": 100000000.0,
+   "n_probes": 12,
+   "n_ok": 0,
+   "n_wrong": 12,
+   "n_raised": 0,
+   "build_seconds": 1.232,
+   "seconds": 1.237,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba",
+    "MechanicsDSL: Parser error: Expected NUMBER but got MINUS '-' at line 11, column 64",
+    "MechanicsDSL: Parser encountered 2 errors",
+    "MechanicsDSL: Parser found 2 errors",
+    "MechanicsDSL: No solution found for lambda_0_ddot; falling back to zero acceleration. Check that the Lagrangian is non-degenerate in this coordinate.",
+    "MechanicsDSL: Compilation produced 1 diagnostic warning(s); results may be incomplete.",
+    "engine: No solution found for lambda_0_ddot; falling back to zero acceleration. Check that the Lagrangian is non-degenerate in this coordinate."
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 0,
+    "state": [
+     0.0,
+     4.0,
+     2.5,
+     -0.0
+    ],
+    "engine": [
+     0.0,
+     0.0
+    ],
+    "reference": [
+     -9.81,
+     -26.66666666666667
+    ],
+    "err": 1.0,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "slidercrank/l_over_r=1.05,ms_over_mc=10000",
+   "family": "slidercrank",
+   "verdict": "warned",
+   "refused": false,
+   "worst_err": 1.0,
+   "worst_ratio": 100000000.0,
+   "n_probes": 12,
+   "n_ok": 0,
+   "n_wrong": 12,
+   "n_raised": 0,
+   "build_seconds": 1.245,
+   "seconds": 1.25,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba",
+    "MechanicsDSL: Parser error: Expected NUMBER but got MINUS '-' at line 11, column 64",
+    "MechanicsDSL: Parser encountered 2 errors",
+    "MechanicsDSL: Parser found 2 errors",
+    "MechanicsDSL: No solution found for lambda_0_ddot; falling back to zero acceleration. Check that the Lagrangian is non-degenerate in this coordinate.",
+    "MechanicsDSL: Compilation produced 1 diagnostic warning(s); results may be incomplete.",
+    "engine: No solution found for lambda_0_ddot; falling back to zero acceleration. Check that the Lagrangian is non-degenerate in this coordinate."
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 0,
+    "state": [
+     0.0,
+     4.0,
+     2.05,
+     -0.0
+    ],
+    "engine": [
+     0.0,
+     0.0
+    ],
+    "reference": [
+     -9.81,
+     -31.238095238095237
+    ],
+    "err": 1.0,
+    "tol": 1e-08
+   }
+  },
+  {
+   "route": "compile_dsl",
+   "case": "slidercrank/l_over_r=3,ms_over_mc=1e+06",
+   "family": "slidercrank",
+   "verdict": "warned",
+   "refused": false,
+   "worst_err": 1.0,
+   "worst_ratio": 100000000.0,
+   "n_probes": 12,
+   "n_ok": 0,
+   "n_wrong": 12,
+   "n_raised": 0,
+   "build_seconds": 1.233,
+   "seconds": 1.238,
+   "build_error": null,
+   "warnings": [
+    "MechanicsDSL: Numba not available. Install with: pip install numba",
+    "MechanicsDSL: Parser error: Expected NUMBER but got MINUS '-' at line 11, column 64",
+    "MechanicsDSL: Parser encountered 2 errors",
+    "MechanicsDSL: Parser found 2 errors",
+    "MechanicsDSL: No solution found for lambda_0_ddot; falling back to zero acceleration. Check that the Lagrangian is non-degenerate in this coordinate.",
+    "MechanicsDSL: Compilation produced 1 diagnostic warning(s); results may be incomplete.",
+    "engine: No solution found for lambda_0_ddot; falling back to zero acceleration. Check that the Lagrangian is non-degenerate in this coordinate."
+   ],
+   "max_shift": 0.0,
+   "worst_probe": {
+    "k": 0,
+    "state": [
+     0.0,
+     4.0,
+     4.0,
+     -0.0
+    ],
+    "engine": [
+     0.0,
+     0.0
+    ],
+    "reference": [
+     -9.81,
+     -21.333333333333332
+    ],
+    "err": 1.0,
+    "tol": 1e-08
+   }
+  }
+ ],
+ "summary": {
+  "pass": 14,
+  "silent": 0,
+  "warned": 5,
+  "error": 0,
+  "timeout": 2,
+  "harness-error": 0
+ }
+}

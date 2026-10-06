@@ -129,7 +129,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
+      # The newest main, not the commit that triggered this run: another run
+      # may have published results since.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -138,16 +142,32 @@ jobs:
         if: needs.discover.outputs.any == 'true'
         with:
           pattern: result-*
-          path: results
+          path: incoming
           merge-multiple: true
       - name: commit results
+        env:
+          FORCE: ${{ inputs.force }}
         run: |
           git config user.name "conformance-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # A published result is overwritten only by a run dispatched with
+          # force; otherwise the first result published for a release stands.
+          if [ -d incoming ]; then
+            (cd incoming && find . -name '*.json') | while read -r f; do
+              if [ -e "results/$f" ] && [ "$FORCE" != "true" ]; then echo "already published: $f"; continue; fi
+              mkdir -p "results/$(dirname "$f")" && cp "incoming/$f" "results/$f"
+            done
+          fi
           git add results
           if git diff --cached --quiet; then echo "no new results"; exit 0; fi
-          git commit -m "results: $(git diff --cached --name-only | sed 's#results/##; s#\.json##' | paste -sd ', ')"
-          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
+          git commit -m "results: $(git diff --cached --name-only | sed 's#results/##; s#\.json##' | paste -sd ' ')"
+          # On a race with another run, keep whatever was published first.
+          for i in 1 2 3; do
+            git pull --rebase -X ours && git push && exit 0
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          exit 1
       - run: python -m conformance.site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
