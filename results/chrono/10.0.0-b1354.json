@@ -1,0 +1,28 @@
+{
+ "engine": "chrono",
+ "display": "Project Chrono (PyChrono)",
+ "homepage": "https://projectchrono.org",
+ "install_spec": "projectchrono::pychrono=10.0.0=py312h98ab86c_1354",
+ "catalogue_version": "1",
+ "harness_commit": "7dd0c7f03f6435f0dac2d92b37588e548c644812",
+ "python": "3.12.14",
+ "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+ "run_at": "2026-10-05T23:56:24+00:00",
+ "run_url": "https://github.com/Noah-Parsons/dynamics-conformance/actions/runs/37391248957",
+ "routes": {
+  "assembly": "DoAssembly, then ChBody.GetPosDt2 (what a Python user gets)",
+  "system-matrices": "Chrono's M and Cq from WriteSystemMatrices, KKT solved in numpy"
+ },
+ "known_issues": {
+  "assembly": "https://github.com/projectchrono/chrono/issues/846"
+ },
+ "not_modelled": {
+  "near_singular": "Needs a kinetic cross-term between two translational DOFs, which point bodies and joints cannot express without a massless intermediate body.",
+  "mass_ratio": "A spring network rather than a mechanism."
+ },
+ "version": "10.0.0 (build 1354)",
+ "key": "10.0.0-b1354",
+ "status": "install-failed",
+ "results": [],
+ "summary": {}
+}
